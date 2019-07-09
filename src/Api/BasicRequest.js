@@ -1,5 +1,5 @@
 import axios from 'axios';
-import uriConfig from './uri_config';
+import uriConfig from '../Config/config.js';
 import { throwErr } from '../utils/throwErr' //utils 捕捉服务端http状态码的方法
 
 // 添加预设 axios 预设值

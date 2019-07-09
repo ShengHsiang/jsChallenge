@@ -13,14 +13,22 @@ class TomatoClockPage extends Component {
           </section>
           <section className="tomato-main__middle">
             <div className="tomato-main__middle__circle">
-              <div className="tomato-main__middle__circle__playBtn">
+              <div className="tomato-main__middle__circle--playBtn">
                 <i class="material-icons">
                   play_arrow
                 </i>
               </div>
+              <div className="tomato-main__middle__circle--square">
+                <span className="white"></span>
+              </div>
             </div>
           </section>
-          <section className="tomato-main__right"></section>
+          <section className="tomato-main__right">
+            <div className="tomato-main__right__toolBar">
+              <div className="tomato-main__right__toolBar--icon"></div>
+              <div className="tomato-main__right__toolBar--text"></div>
+            </div>
+          </section>
         </div>
       </div>
     )
