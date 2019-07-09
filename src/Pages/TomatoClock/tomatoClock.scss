@@ -1,0 +1,108 @@
+@import '../../Assets/Css/myVariables.scss';
+
+.tomato--wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  min-width: 1280px;
+  min-height: 800px;
+}
+
+.tomato-main--wrap {
+  width: 1280px;
+  height: 800px;
+  display: flex;
+  position: relative;
+}
+
+.tomato-main__left {
+  width: calc(1280px - 450px);
+  height: 100%;
+  background-color: $tomato-color-pink;
+  padding-top: 48px;
+  padding-left: 85px;
+  padding-right: 300px;
+
+  &__input--wrap {
+    height: 56px;
+    width: 100%;
+    position: relative;
+
+    &::after {
+      content: '＋';
+      position: absolute;
+      top: 17px;
+      right: 16px;
+      font-size: 20px;
+      color: $tomato-color-darkPink;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding-left: 16px;
+    border: none;
+    color: $tomato-color-darkPink;
+
+    &::-webkit-input-placeholder {
+      color: $tomato-color-darkPink;
+    }
+
+    &:-moz-placeholder {
+      color: $tomato-color-darkPink;
+    }
+
+    &:-ms-input-placeholder {
+      /* IE10+ */
+      color: $tomato-color-darkPink;
+    }
+  }
+
+}
+
+.tomato-main__middle {
+  width: 540px;
+  height: 540px;
+  position: absolute;
+  top: 130px;
+  right: 180px;
+  border-radius: 50%;
+  border: 5px solid $tomato-color-darkPink;
+  padding: 15px;
+
+  &__circle {
+    border-radius: 50%;
+    background-color: $tomato-color-darkPink;
+    height: 500px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__playBtn {
+      height: 96px;
+      width: 96px;
+      border-radius: 50%;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      & .material-icons {
+        font-size: 60px;
+        color: $tomato-color-darkPink;
+      }
+    }
+  }
+}
+
+.tomato-main__right {
+  width: 450px;
+  height: 100%;
+  background-color: $tomato-color-blue;
+}

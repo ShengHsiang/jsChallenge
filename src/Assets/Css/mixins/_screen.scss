@@ -1,0 +1,5 @@
+@mixin padScreen {
+  @media (max-width: 768px) {
+    @content
+  }
+}//ipad 寬度約 768px
