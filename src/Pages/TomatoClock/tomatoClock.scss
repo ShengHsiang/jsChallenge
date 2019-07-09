@@ -72,10 +72,32 @@
   right: 180px;
   border-radius: 50%;
   border: 5px solid $tomato-color-darkPink;
-  padding: 15px;
+  // padding: 15px;
+
+  #circleProcess {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 530px;
+    height: 530px;
+    stroke-dasharray: 305.5%;
+    stroke-dashoffset: 305.5%;
+    // stroke: #6FEC6F;
+    stroke: $tomato-color-darkPink;
+    fill: none;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
 
   &__circle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
     border-radius: 50%;
+    border: 5px solid $tomato-color-darkPink;
     background-color: $tomato-color-darkPink;
     height: 500px;
     width: 500px;
@@ -83,10 +105,15 @@
     justify-content: center;
     align-items: center;
 
+    &.active {
+      background-color: #fff;
+    }
+
     &--playBtn {
       height: 96px;
       width: 96px;
       border-radius: 50%;
+      color: $tomato-color-darkPink;
       background-color: #fff;
       display: flex;
       justify-content: center;
@@ -94,9 +121,18 @@
       cursor: pointer;
       // position: relative;
 
+      &.active {
+        color: #fff;
+        background-color: $tomato-color-darkPink;
+      }
+
       & .material-icons {
         font-size: 60px;
-        color: $tomato-color-darkPink;
+        // 文字不能被選中（因為是字體圖標）
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
     }
 
@@ -105,15 +141,21 @@
       height: 24px;
       padding: 3px;
       position: absolute;
-      right: 180px;
-      bottom: 215px;
+      right: 160px;
+      bottom: 190px;
+      cursor: pointer;
 
       .white {
         display: block;
         height: 100%;
         width: 100%;
         background-color: #fff;
+
+        &.active {
+          background-color: $tomato-color-darkPink;
+        }
       }
+
     }
   }
 }

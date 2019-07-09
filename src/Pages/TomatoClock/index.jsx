@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
+import classNames from 'classnames'
 import './tomatoClock.scss'
 
 class TomatoClockPage extends Component {
+  state = {
+    play: false,
+  }
+
+  onPlayBtnClick() {
+    this.setState({ play: !this.state.play })
+  }
+
   render() {
+    const circleActive = classNames('tomato-main__middle__circle', { "active": this.state.play })
+    const btnActive = classNames('tomato-main__middle__circle--playBtn', { "active": this.state.play })
     return (
       <div className="tomato--wrap">
         <div className="tomato-main--wrap">
@@ -12,14 +23,17 @@ class TomatoClockPage extends Component {
             </div>
           </section>
           <section className="tomato-main__middle">
-            <div className="tomato-main__middle__circle">
-              <div className="tomato-main__middle__circle--playBtn">
-                <i class="material-icons">
-                  play_arrow
+            <svg xmlns="http://www.w3.org/200/svg" id="circleProcess">
+              <circle cx="50%" cy="50%" r="48.6%" strokeWidth="3%" strokeLinecap="round" />
+            </svg>
+            <div className={circleActive}>
+              <div className={btnActive} onClick={() => this.onPlayBtnClick()}>
+                <i className="material-icons">
+                  {this.state.play ? "pause" : "play_arrow"}
                 </i>
               </div>
               <div className="tomato-main__middle__circle--square">
-                <span className="white"></span>
+                <span className={classNames("white", { "active": this.state.play })}></span>
               </div>
             </div>
           </section>
