@@ -18,7 +18,7 @@ class TomatoClockPage extends Component {
     progress: 305.5, // 進度條 0% 為 305.5
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     // 如果有定時器，再組件卸載的時候清除它
     if (interval) {
       clearInterval(interval)
@@ -39,6 +39,7 @@ class TomatoClockPage extends Component {
         mission_content: currentInput,
         beginTime: '',
         endTime: '',
+        pauseTime: '',
         isCompelete: false,
         isPause: false,
         compeleteTime: '',
@@ -57,7 +58,7 @@ class TomatoClockPage extends Component {
     const nowTimeStamp = new Date().getTime(); // 任務開始時間
     const endTimeStamp = nowTimeStamp + totalTime; // 預計任務結束時間
 
-    if (!play) {
+    if (!play && !currentMissoin.isCompelete) { // 正在進行或是已經完成的任務不能再次開始
       currentMissoin.beginTime = nowTimeStamp;
       currentMissoin.endTime = endTimeStamp;
       interval = setInterval(this.countdownTime, 1000); // 設定一個定時器，必須保存再全域變量裡，方便清除
@@ -72,14 +73,14 @@ class TomatoClockPage extends Component {
   }
 
   countdownTime = () => {
-    const { selectRow, missionList, progress } = this.state;
+    const { selectRow, missionList } = this.state;
     const endTimeStamp = this.state.EndTime;
     const nowTimeStamp = new Date().getTime();
     const time = parseInt(endTimeStamp - nowTimeStamp) // 進行中的時間
 
     if (time > 0) {
       const formatMinutes = ("0" + (new Date(time).getMinutes())).slice(-2); // 計算＆格式化時間，例如 24:59這樣顯示
-      const formatSec = ("0" + (new Date(time).getSeconds() + 1)).slice(-2);
+      const formatSec = ("0" + (new Date(time).getSeconds())).slice(-2);
       const newProgress = parseInt(time / parseInt(totalTime / 305.5))
       this.setState({ countdown: `${formatMinutes}:${formatSec}`, progress: newProgress })
     } else { // 時間到
@@ -115,8 +116,6 @@ class TomatoClockPage extends Component {
         selectRow: id,
         selectMission: selectMission
       })
-    } else {
-      alert("番茄小任務進行中～")
     }
   }
 
@@ -180,6 +179,7 @@ const dataList = [
     mission_content: 'The first thing to do today',
     beginTime: '',
     endTime: '',
+    pauseTime: '',
     isCompelete: false,
     isPause: false,
     compeleteTime: '',
@@ -189,6 +189,7 @@ const dataList = [
     mission_content: 'The second thing to do today',
     beginTime: '',
     endTime: '',
+    pauseTime: '',
     isCompelete: false,
     isPause: false,
     compeleteTime: '',
@@ -198,6 +199,7 @@ const dataList = [
     mission_content: 'The third thing to do today',
     beginTime: '',
     endTime: '',
+    pauseTime: '',
     isCompelete: false,
     isPause: false,
     compeleteTime: '',
@@ -207,6 +209,7 @@ const dataList = [
     mission_content: 'The forth thing to do today',
     beginTime: '',
     endTime: '',
+    pauseTime: '',
     isCompelete: false,
     isPause: false,
     compeleteTime: '',
