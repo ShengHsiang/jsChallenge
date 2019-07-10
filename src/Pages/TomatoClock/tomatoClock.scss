@@ -29,14 +29,20 @@
     height: 56px;
     width: 100%;
     position: relative;
-
-    &::after {
-      content: '＋';
-      position: absolute;
-      top: 17px;
-      right: 16px;
-      font-size: 20px;
+    display: flex;
+    
+    & .addMissionBtn {
+      padding: 0 16px;
+      outline: none;
+      border: none;
+      background-color: #fff;
+      font-size: 24px;
       color: $tomato-color-darkPink;
+
+      &:hover {
+        color: #fff;
+        background-color: $tomato-color-darkPink;
+      }
     }
   }
 
@@ -47,6 +53,8 @@
     padding-left: 16px;
     border: none;
     color: $tomato-color-darkPink;
+    font-family: 'Roboto', Bold Italic;
+    outline: none;
 
     &::-webkit-input-placeholder {
       color: $tomato-color-darkPink;
@@ -62,6 +70,110 @@
     }
   }
 
+
+  &__list--wrap {
+    margin-top: 145px;
+    width: 445px;
+    height: calc(800px - 96px - 145px - 76px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &__list--item {
+    width: 100%;
+    height: 48px;
+    border-bottom: 1px solid $totato-color-blue_20;
+
+    // list 选中效果
+    &.active {
+      padding-top: 20px;
+      flex: 1;
+
+      & .tomato-main__left__list--top {
+        height: 48px;
+        align-items: flex-start;
+      }
+
+      & .tomato-main__left__list--bottom {
+        display: block;
+      }
+
+      & .circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 2px solid $tomato-color-blue;
+      }
+
+      & .content {
+        height: 100%;
+        font-size: 24px;
+
+        & span {
+          margin-top: 8px;
+          display: block;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          border: 1px solid $tomato-color-darkPink;
+        }
+      }
+
+      & .icon {
+        display: none;
+      }
+    }
+  }
+
+  &__list--top {
+    height: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    color: $tomato-color-blue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.5s;
+    cursor: pointer;
+
+    & .circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid $tomato-color-blue;
+    }
+
+    & .content {
+      flex: 1;
+      font-size: 16px;
+      margin-left: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    & .icon {
+      width: 24px;
+      height: 24px;
+      // 不能被選中
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  }
+
+  &__list--bottom {
+    display: none;
+
+    & .countdown {
+      line-height: 206px;
+      font-size: 170px;
+      color: $tomato-color-darkPink;
+      text-align: center;
+    }
+  }
 }
 
 .tomato-main__middle {
@@ -105,6 +217,7 @@
     justify-content: center;
     align-items: center;
 
+    // 中间按钮选中效果
     &.active {
       background-color: #fff;
     }
