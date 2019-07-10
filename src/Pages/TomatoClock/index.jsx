@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import IndexListComponent from './Components/IndexListComponent'
-import { createRandomId } from '../../Utils/functions'
+import { createRandomId, formatSeconds } from '../../Utils/functions'
 import './tomatoClock.scss'
 
 class TomatoClockPage extends Component {
@@ -42,25 +42,34 @@ class TomatoClockPage extends Component {
 
   onPlayBtnClick() {
     const { play, selectRow, missionList } = this.state;
-    // 拿到當前選擇的對象
-    const currentMissoin = missionList.find(item => item.mission_id === selectRow);
+    const currentMissoin = missionList.find(item => item.mission_id === selectRow); // 拿到當前選擇的對象
     const nowTimeStamp = new Date().getTime(); // 任務開始時間
     const endTimeStamp = nowTimeStamp + (25 * 60 * 1000); // 預計任務結束時間
 
     if (!play) {
-      currentMissoin.beginTime = nowTimeStamp; 
+      currentMissoin.beginTime = nowTimeStamp;
       currentMissoin.endTime = endTimeStamp;
-      this.setState({ 
+      this.setState({
         play: !this.state.play,
         EndTime: endTimeStamp
-      })
-      setInterval(this.countdownTime(endTimeStamp), 1000);
+      }, () => setInterval(this.countdownTime, 1000))
+
     }
-    console.log("currentMissoin", currentMissoin);
+    // console.log("currentMissoin", currentMissoin);
   }
 
-  countdownTime(end) {
-    
+  countdownTime = () => {
+    const endTimeStamp = this.state.EndTime;
+    const nowTimeStamp = new Date().getTime();
+    const time = parseInt(endTimeStamp - nowTimeStamp)
+    if (time > 0) {
+      const formatMinutes = ("0" + (new Date(time).getMinutes())).slice(-2); // 計算＆格式化時間，例如 24:59這樣顯示
+      const formatSec = ("0" + (new Date(time).getSeconds() + 1)).slice(-2);
+      this.setState({ countdown: `${formatMinutes}:${formatSec}` })
+    } else {
+      console.log("clear")
+      clearInterval(this.countdownTime)
+    }
   }
 
   onRowClick = (id) => {
