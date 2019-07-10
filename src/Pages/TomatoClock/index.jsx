@@ -4,6 +4,7 @@ import IndexListComponent from './Components/IndexListComponent'
 import { createRandomId, formatSeconds } from '../../Utils/functions'
 import './tomatoClock.scss'
 let interval; // 宣告一個全域變數，給定時器使用
+const totalTime = (25 * 60 * 1000); // 番茄鐘一次任務的時間
 
 class TomatoClockPage extends Component {
   state = {
@@ -14,6 +15,7 @@ class TomatoClockPage extends Component {
     selectMission: dataList[0],
     currentInput: '',
     missionList: dataList,
+    progress: 305.5, // 進度條 0% 為 305.5
   }
 
   componentWillMount() {
@@ -53,7 +55,7 @@ class TomatoClockPage extends Component {
     const { play, selectRow, missionList } = this.state;
     const currentMissoin = missionList.find(item => item.mission_id === selectRow); // 拿到當前選擇的對象
     const nowTimeStamp = new Date().getTime(); // 任務開始時間
-    const endTimeStamp = nowTimeStamp + (25 * 60 * 1000); // 預計任務結束時間
+    const endTimeStamp = nowTimeStamp + totalTime; // 預計任務結束時間
 
     if (!play) {
       currentMissoin.beginTime = nowTimeStamp;
@@ -70,15 +72,18 @@ class TomatoClockPage extends Component {
   }
 
   countdownTime = () => {
+    const { selectRow, missionList, progress } = this.state;
     const endTimeStamp = this.state.EndTime;
     const nowTimeStamp = new Date().getTime();
-    const time = parseInt(endTimeStamp - nowTimeStamp)
+    const time = parseInt(endTimeStamp - nowTimeStamp) // 進行中的時間
+
     if (time > 0) {
       const formatMinutes = ("0" + (new Date(time).getMinutes())).slice(-2); // 計算＆格式化時間，例如 24:59這樣顯示
       const formatSec = ("0" + (new Date(time).getSeconds() + 1)).slice(-2);
-      this.setState({ countdown: `${formatMinutes}:${formatSec}` })
+      const newProgress = parseInt(time / parseInt(totalTime / 305.5))
+      this.setState({ countdown: `${formatMinutes}:${formatSec}`, progress: newProgress })
     } else { // 時間到
-      const { selectRow, missionList } = this.state;
+
       // 找到完成的任務，更新任務狀態
       const updateMissionList = missionList.map(item => {
         if (item.mission_id === selectRow) {
@@ -91,6 +96,7 @@ class TomatoClockPage extends Component {
         play: false,
         countdown: '00:00',
         missionList: updateMissionList,
+        progress: 0
       })
       clearInterval(interval) // 清除定時事件
     }
@@ -101,14 +107,16 @@ class TomatoClockPage extends Component {
     if (!play) {
       const selectMission = missionList.find(item => item.mission_id === id)
       if (selectMission.isCompelete) {
-        this.setState({ countdown: '00:00' })
+        this.setState({ countdown: '00:00', progress: 0 })
       } else {
-        this.setState({ countdown: '25:00' })
+        this.setState({ countdown: '25:00', progress: 305.5 })
       }
       this.setState({
         selectRow: id,
         selectMission: selectMission
       })
+    } else {
+      alert("番茄小任務進行中～")
     }
   }
 
@@ -141,7 +149,7 @@ class TomatoClockPage extends Component {
           </section>
           <section className="tomato-main__middle">
             <svg xmlns="http://www.w3.org/200/svg" id="circleProcess">
-              <circle cx="50%" cy="50%" r="48.6%" strokeWidth="3%" strokeLinecap="round" />
+              <circle cx="50%" cy="50%" r="48.6%" strokeWidth="3%" strokeLinecap="round" strokeDashoffset={`${this.state.progress}%`} />
             </svg>
             <div className={circleActive}>
               <div className={btnActive} onClick={() => this.onPlayBtnClick()}>
