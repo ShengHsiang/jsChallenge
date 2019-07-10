@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import IndexListComponent from './Components/IndexListComponent'
 import { createRandomId, formatSeconds } from '../../Utils/functions'
 import './tomatoClock.scss'
+let interval; // 宣告一個全域變數，給定時器使用
 
 class TomatoClockPage extends Component {
   state = {
@@ -10,8 +11,16 @@ class TomatoClockPage extends Component {
     countdown: '25:00',
     EndTime: '',
     selectRow: dataList[0].mission_id,
+    selectMission: dataList[0],
     currentInput: '',
     missionList: dataList,
+  }
+
+  componentWillMount() {
+    // 如果有定時器，再組件卸載的時候清除它
+    if (interval) {
+      clearInterval(interval)
+    }
   }
 
   handleInputChange(e) {
@@ -49,10 +58,12 @@ class TomatoClockPage extends Component {
     if (!play) {
       currentMissoin.beginTime = nowTimeStamp;
       currentMissoin.endTime = endTimeStamp;
+      interval = setInterval(this.countdownTime, 1000); // 設定一個定時器，必須保存再全域變量裡，方便清除
+
       this.setState({
         play: !this.state.play,
         EndTime: endTimeStamp
-      }, () => setInterval(this.countdownTime, 1000))
+      }, () => interval)
 
     }
     // console.log("currentMissoin", currentMissoin);
@@ -66,20 +77,44 @@ class TomatoClockPage extends Component {
       const formatMinutes = ("0" + (new Date(time).getMinutes())).slice(-2); // 計算＆格式化時間，例如 24:59這樣顯示
       const formatSec = ("0" + (new Date(time).getSeconds() + 1)).slice(-2);
       this.setState({ countdown: `${formatMinutes}:${formatSec}` })
-    } else {
-      console.log("clear")
-      clearInterval(this.countdownTime)
+    } else { // 時間到
+      const { selectRow, missionList } = this.state;
+      // 找到完成的任務，更新任務狀態
+      const updateMissionList = missionList.map(item => {
+        if (item.mission_id === selectRow) {
+          item.compeleteTime = new Date().getTime();
+          item.isCompelete = true;
+        }
+        return item
+      })
+      this.setState({
+        play: false,
+        countdown: '00:00',
+        missionList: updateMissionList,
+      })
+      clearInterval(interval) // 清除定時事件
     }
   }
 
   onRowClick = (id) => {
-    this.setState({ selectRow: id })
+    const { missionList, play } = this.state
+    if (!play) {
+      const selectMission = missionList.find(item => item.mission_id === id)
+      if (selectMission.isCompelete) {
+        this.setState({ countdown: '00:00' })
+      } else {
+        this.setState({ countdown: '25:00' })
+      }
+      this.setState({
+        selectRow: id,
+        selectMission: selectMission
+      })
+    }
   }
 
   render() {
     const circleActive = classNames('tomato-main__middle__circle', { "active": this.state.play })
     const btnActive = classNames('tomato-main__middle__circle--playBtn', { "active": this.state.play })
-
     return (
       <div className="tomato--wrap">
         <div className="tomato-main--wrap">
