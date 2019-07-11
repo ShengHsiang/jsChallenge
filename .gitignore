@@ -14,5 +14,5 @@ yarn-error.log*
 
 
 // project add
-dist
-color.less
+dist/
+build/
