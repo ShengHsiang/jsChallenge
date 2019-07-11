@@ -4,15 +4,13 @@ import IndexListComponent from './Components/IndexListComponent'
 import { createRandomId, formatSeconds } from '../../Utils/functions'
 import './tomatoClock.scss'
 let interval; // 宣告一個全域變數，給定時器使用
-const totalTime = (25 * 60 * 1000); // 番茄鐘一次任務的時間
+const totalTime = (25 * 60); // 番茄鐘一次任務的時間（單位 秒）
 
 class TomatoClockPage extends Component {
   state = {
     play: false,
-    countdown: '25:00',
-    EndTime: '',
     selectRow: dataList[0].mission_id,
-    selectMission: dataList[0],
+    selectMission: dataList[0], // 當前選擇的物件
     currentInput: '',
     missionList: dataList,
     progress: 305.5, // 進度條 0% 為 305.5
@@ -37,11 +35,11 @@ class TomatoClockPage extends Component {
       missionList.push({  // push 一個自定義物件
         mission_id: newId,
         mission_content: currentInput,
-        beginTime: '',
-        endTime: '',
-        pauseTime: '',
+        remainingTime: totalTime, // 剩餘時間（時間戳）
+        formatTime: formatSeconds(totalTime), // 剩餘時間（顯示用）
         isCompelete: false,
-        isPause: false,
+        isProgress: false,
+        beginTime: '',
         compeleteTime: '',
       })
     }
@@ -55,66 +53,80 @@ class TomatoClockPage extends Component {
   onPlayBtnClick() {
     const { play, selectRow, missionList } = this.state;
     const currentMissoin = missionList.find(item => item.mission_id === selectRow); // 拿到當前選擇的對象
-    const nowTimeStamp = new Date().getTime(); // 任務開始時間
-    const endTimeStamp = nowTimeStamp + totalTime; // 預計任務結束時間
-
-    if (!play && !currentMissoin.isCompelete) { // 正在進行或是已經完成的任務不能再次開始
-      currentMissoin.beginTime = nowTimeStamp;
-      currentMissoin.endTime = endTimeStamp;
+    if (!play && !currentMissoin.isCompelete && !currentMissoin.isProgress) { //未完成，且沒有進行過 --> 新開始
       interval = setInterval(this.countdownTime, 1000); // 設定一個定時器，必須保存再全域變量裡，方便清除
-
-      this.setState({
-        play: !this.state.play,
-        EndTime: endTimeStamp
-      }, () => interval)
-
+      this.setState({ play: !this.state.play }, () => interval)
+    } else if (play && !currentMissoin.isCompelete && currentMissoin.isProgress) { //未完成，但進行過 --> 暫停 
+      clearInterval(interval)
+      this.setState({ play: !this.state.play })
+    } else if (!play && !currentMissoin.isCompelete && currentMissoin.isProgress) {
+      interval = setInterval(this.countdownTime, 1000);
+      this.setState({ play: !this.state.play }, () => interval)
     }
-    // console.log("currentMissoin", currentMissoin);
   }
 
   countdownTime = () => {
     const { selectRow, missionList } = this.state;
-    const endTimeStamp = this.state.EndTime;
-    const nowTimeStamp = new Date().getTime();
-    const time = parseInt(endTimeStamp - nowTimeStamp) // 進行中的時間
+    const currentMissoin = missionList.find(item => item.mission_id === selectRow)
+    console.log(currentMissoin.remainingTime)
 
-    if (time > 0) {
-      const formatMinutes = ("0" + (new Date(time).getMinutes())).slice(-2); // 計算＆格式化時間，例如 24:59這樣顯示
-      const formatSec = ("0" + (new Date(time).getSeconds())).slice(-2);
-      const newProgress = parseInt(time / parseInt(totalTime / 305.5))
-      this.setState({ countdown: `${formatMinutes}:${formatSec}`, progress: newProgress })
-    } else { // 時間到
-
-      // 找到完成的任務，更新任務狀態
-      const updateMissionList = missionList.map(item => {
-        if (item.mission_id === selectRow) {
-          item.compeleteTime = new Date().getTime();
-          item.isCompelete = true;
-        }
-        return item
+    if (currentMissoin.remainingTime > 0) {
+      let obj = {
+        remainingTime: currentMissoin.remainingTime - 1,
+        formatTime: formatSeconds(currentMissoin.remainingTime),
+        isProgress: true,
+      }
+      const newMissionStates = Object.assign({}, currentMissoin, obj)
+      const newProgress = parseInt(currentMissoin.remainingTime / (totalTime / 305.5))
+      this.setState({
+        progress: newProgress,
+        missionList: this.updateMissionList(selectRow, obj),
+        selectMission: newMissionStates,
       })
+    } else { // 時間到
+      const obj = { // 更新狀態，完成時間
+        formatTime: formatSeconds(currentMissoin.remainingTime),
+        isCompelete: true,
+        compeleteTime: new Date().getTime()
+      }
+      const newMissionStates = Object.assign({}, currentMissoin, obj)
       this.setState({
         play: false,
-        countdown: '00:00',
-        missionList: updateMissionList,
+        missionList: this.updateMissionList(selectRow, obj),
+        selectMission: newMissionStates,
         progress: 0
       })
+      console.log("clear");
       clearInterval(interval) // 清除定時事件
     }
   }
 
+  updateMissionList(id, updateObj) {
+    const { missionList } = this.state;
+    return missionList.map(item => {
+      if (item.mission_id === id) {
+        item = Object.assign({}, item, updateObj)
+      }
+      return item
+    })
+  }
+
   onRowClick = (id) => {
     const { missionList, play } = this.state
+    const currentMissoin = missionList.find(item => item.mission_id === id)
+    const newProgress = parseInt(currentMissoin.remainingTime / (totalTime / 305.5))
+
     if (!play) {
-      const selectMission = missionList.find(item => item.mission_id === id)
-      if (selectMission.isCompelete) {
-        this.setState({ countdown: '00:00', progress: 0 })
-      } else {
-        this.setState({ countdown: '25:00', progress: 305.5 })
-      }
+      if (currentMissoin.isCompelete) {
+        this.setState({ progress: 0 })
+      } else if (!currentMissoin.isCompelete && currentMissoin.isProgress) {
+        this.setState({ progress: newProgress })
+      } else (
+        this.setState({ progress: 305.5 })
+      )
       this.setState({
         selectRow: id,
-        selectMission: selectMission
+        selectMission: currentMissoin
       })
     }
   }
@@ -141,7 +153,7 @@ class TomatoClockPage extends Component {
                 // dataSource={dataList}
                 dataSource={this.state.missionList}
                 selectRow={this.state.selectRow}
-                countdown={this.state.countdown}
+                countdown={this.state.selectMission.formatTime}
                 onClick={this.onRowClick}
               />
             </div>
@@ -177,41 +189,41 @@ const dataList = [
   {
     mission_id: createRandomId(),
     mission_content: 'The first thing to do today',
-    beginTime: '',
-    endTime: '',
-    pauseTime: '',
+    remainingTime: totalTime, // 剩餘時間（時間戳）
+    formatTime: formatSeconds(totalTime), // 剩餘時間（顯示用）
     isCompelete: false,
-    isPause: false,
+    isProgress: false,
+    beginTime: '',
     compeleteTime: '',
   },
   {
     mission_id: createRandomId(),
     mission_content: 'The second thing to do today',
-    beginTime: '',
-    endTime: '',
-    pauseTime: '',
+    remainingTime: totalTime, // 剩餘時間（時間戳）
+    formatTime: formatSeconds(totalTime), // 剩餘時間（顯示用）
     isCompelete: false,
-    isPause: false,
+    isProgress: false,
+    beginTime: '',
     compeleteTime: '',
   },
   {
     mission_id: createRandomId(),
     mission_content: 'The third thing to do today',
-    beginTime: '',
-    endTime: '',
-    pauseTime: '',
+    remainingTime: totalTime, // 剩餘時間（時間戳）
+    formatTime: formatSeconds(totalTime), // 剩餘時間（顯示用）
     isCompelete: false,
-    isPause: false,
+    isProgress: false,
+    beginTime: '',
     compeleteTime: '',
   },
   {
     mission_id: createRandomId(),
     mission_content: 'The forth thing to do today',
-    beginTime: '',
-    endTime: '',
-    pauseTime: '',
+    remainingTime: totalTime, // 剩餘時間（時間戳）
+    formatTime: formatSeconds(totalTime), // 剩餘時間（顯示用）
     isCompelete: false,
-    isPause: false,
+    isProgress: false,
+    beginTime: '',
     compeleteTime: '',
   },
 ]

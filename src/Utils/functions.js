@@ -25,13 +25,11 @@ export function formatSeconds(value) {
       minuteTime = parseInt(minuteTime % 60);
     }
   }
-  var result = "" + parseInt(secondTime) + "秒";
-
-  if (minuteTime > 0) {
-    result = "" + parseInt(minuteTime) + "分" + result;
-  }
-  if (hourTime > 0) {
-    result = "" + parseInt(hourTime) + "小时" + result;
-  }
+  // 取 分秒
+  let result = formatValue(minuteTime) + ':' + formatValue(secondTime)
   return result;
+}
+
+function formatValue(value) {
+  return ("0" + value).slice(-2)
 }
