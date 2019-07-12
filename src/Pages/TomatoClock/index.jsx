@@ -51,11 +51,11 @@ class TomatoClockPage extends Component {
     localStorage.setItem("missionList", JSON.stringify(missionList))
   }
 
-  handleInputChange(e) {
+  handleInputChange = (e) => {
     this.setState({ currentInput: e.target.value })
   }
 
-  handleAddBtnClick() {
+  handleAddBtnClick = () => {
     const { currentInput, missionList } = this.state;
     const newId = createRandomId(); // 生成一個隨機數 ID
 
@@ -79,7 +79,7 @@ class TomatoClockPage extends Component {
     })
   }
 
-  onPlayBtnClick() {
+  onPlayBtnClick = () => {
     const { play, selectRow, missionList } = this.state;
     const currentMissoin = missionList.find(item => item.mission_id === selectRow); // 拿到當前選擇的對象
     if (missionList.length > 0) {
@@ -328,6 +328,12 @@ class TomatoClockPage extends Component {
             missionList={this.state.missionList}
             show={this.state.showMissionListModal}
             handleShow={this.handleMissionListModal}
+            countdown={this.state.selectMission.formatTime}
+            selectMission={this.state.selectMission}
+            play={this.state.play}
+            handlePlayBtn={this.onPlayBtnClick}
+            handleInputChange={this.handleInputChange}
+            handleAddBtnClick={this.handleAddBtnClick}
           />
         </div>
       </div>
