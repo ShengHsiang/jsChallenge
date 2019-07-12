@@ -131,7 +131,29 @@ class TomatoClockPage extends Component {
     }
   }
 
+  handleDeleteBtn() {
+    const { play, selectRow, missionList } = this.state
+    const findIndex = missionList.findIndex(item => item.mission_id === selectRow)
+    if (!play) {
+      if (missionList.length > 1) {
+        missionList.splice(findIndex, 1);
+        this.setState({
+          missionList: missionList,
+          selectMission: missionList[findIndex],
+          selectRow: missionList[findIndex].mission_id
+        })
+      } else {
+        this.setState({
+          missionList: [],
+          selectMission: {},
+          selectRow: '',
+        })
+      }
+    }
+  }
+
   render() {
+    console.log(this.state);
     const circleActive = classNames('tomato-main__middle__circle', { "active": this.state.play })
     const btnActive = classNames('tomato-main__middle__circle--playBtn', { "active": this.state.play })
     return (
@@ -157,6 +179,9 @@ class TomatoClockPage extends Component {
                 onClick={this.onRowClick}
               />
             </div>
+            <div className="tomato-main__left__list--more">
+              MORE
+            </div>
           </section>
           <section className="tomato-main__middle">
             <svg xmlns="http://www.w3.org/200/svg" id="circleProcess">
@@ -168,15 +193,33 @@ class TomatoClockPage extends Component {
                   {this.state.play ? "pause" : "play_arrow"}
                 </i>
               </div>
-              <div className="tomato-main__middle__circle--square">
+              <div className="tomato-main__middle__circle--square" onClick={() => this.handleDeleteBtn()}>
                 <span className={classNames("white", { "active": this.state.play })}></span>
               </div>
             </div>
           </section>
           <section className="tomato-main__right">
             <div className="tomato-main__right__toolBar">
-              <div className="tomato-main__right__toolBar--icon"></div>
-              <div className="tomato-main__right__toolBar--text"></div>
+              <div className="tomato-main__right__toolBar--icon">
+                <div className="item">
+                  <i className="material-icons">
+                    list
+                  </i>
+                </div>
+                <div className="item">
+                  <i className="material-icons">
+                    insert_chart
+                  </i>
+                </div>
+                <div className="item">
+                  <i className="material-icons">
+                    library_music
+                  </i>
+                </div>
+              </div>
+              <div className="tomato-main__right__toolBar--text">
+                POMODORO
+              </div>
             </div>
           </section>
         </div>
