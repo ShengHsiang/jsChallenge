@@ -8,7 +8,7 @@
   height: 100vh;
   min-width: 1280px;
   min-height: 800px;
-  background-color: rgba(0,0,0, .65);
+  background-color: rgba(0, 0, 0, .65);
 }
 
 .tomato-main--wrap {
@@ -35,7 +35,7 @@
     width: 100%;
     position: relative;
     display: flex;
-    
+
     & .addMissionBtn {
       padding: 0 16px;
       outline: none;
@@ -97,7 +97,7 @@
     width: 100%;
     height: 48px;
     border-bottom: 1px solid $totato-color-blue_20;
-    
+
     // list 选中效果
     &.active {
       padding-top: 20px;
@@ -296,7 +296,7 @@
   flex-direction: row-reverse;
   padding: 48px 85px;
 
-  &__toolBar{
+  &__toolBar {
     display: flex;
     flex-direction: column;
   }
@@ -304,6 +304,7 @@
   &__toolBar--icon {
     display: flex;
     flex-direction: column;
+    width: 36px;
 
     .item {
       margin-bottom: 48px;
@@ -330,5 +331,46 @@
 }
 
 .tomato-span-text {
-  color: rgba(0,0,0, .65);
+  color: rgba(0, 0, 0, .65);
+}
+
+// mission list wrap css
+.tomato-missionList--wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: $tomato-color-blue;
+  padding: 48px 85px;
+  display: flex;
+}
+
+.tomato-missionList {
+
+  &__left {
+    width: 350px;
+    height: 100%;
+    background-color: #ccc;
+  }
+
+  &__middle {
+    flex: 1;
+  }
+
+  &__right {
+    width: 190px;
+    display: flex;
+    flex-direction: row-reverse;
+
+    &--close {
+      color: #fff;
+      cursor: pointer;
+
+      i {
+        font-size: 48px;
+      }
+    }
+  }
 }

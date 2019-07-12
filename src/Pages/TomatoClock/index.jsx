@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Overlay, Tooltip, OverlayTrigger, Popover, Button } from 'react-bootstrap'
 import classNames from 'classnames'
 import IndexListComponent from './Components/IndexListComponent'
+import MissionListModal from './Components/MissionListModal'
 import { createRandomId, formatSeconds } from '../../Utils/functions'
 import './tomatoClock.scss'
 let interval; // 宣告一個全域變數，給定時器使用
@@ -17,6 +18,7 @@ class TomatoClockPage extends Component {
     currentInput: '',
     missionList: JSON.parse(localStorage.getItem("missionList")) || [],
     progress: 305.5, // 進度條 0% 為 305.5
+    showMissionListModal: false,
   }
 
   // 組件渲染的時候從 localstorage 拿到任務列表
@@ -193,6 +195,10 @@ class TomatoClockPage extends Component {
     }
   }
 
+  handleMissionListModal = () => {
+    this.setState({ showMissionListModal: !this.state.showMissionListModal })
+  }
+
   render() {
     // console.log(this.inputRef);
     const circleActive = classNames('tomato-main__middle__circle', { "active": this.state.play })
@@ -295,7 +301,7 @@ class TomatoClockPage extends Component {
           <section className="tomato-main__right">
             <div className="tomato-main__right__toolBar ">
               <div className="tomato-main__right__toolBar--icon">
-                <div className="item">
+                <div className="item" onClick={() => this.handleMissionListModal()}>
                   <i className="material-icons">
                     list
                   </i>
@@ -316,6 +322,13 @@ class TomatoClockPage extends Component {
               </div>
             </div>
           </section>
+
+
+          <MissionListModal
+            missionList={this.state.missionList}
+            show={this.state.showMissionListModal}
+            handleShow={this.handleMissionListModal}
+          />
         </div>
       </div>
     )
