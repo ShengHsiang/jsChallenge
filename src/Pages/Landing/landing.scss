@@ -16,6 +16,8 @@
   background-color: #fff;
   border-radius: 15px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .landing-list__title {
@@ -46,8 +48,26 @@
 
 .landing-card__line {
   display:  flex;
-  
+  flex-direction: column;
+
   a {
     color: $color-r;
+  }
+}
+
+.landing-card__line__title {
+  &--wrap{
+    display: flex;
+  }
+}
+
+.landing-card__line__content {
+  &--wrap {
+    margin-top: 10px;
+    display: flex;
+  }
+
+  &--title {
+    white-space: nowrap;
   }
 }

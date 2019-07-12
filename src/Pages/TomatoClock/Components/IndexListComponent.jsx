@@ -11,7 +11,7 @@ const IndexListComponent = ({ dataSource, selectRow, countdown, onClick }) => {
           <div className="circle"></div>
           <div className="content" title={item.mission_content}>
             {item.mission_content}
-            <span></span>
+            {/* <span></span> */}
           </div>
           <div className="icon">
             <i className="material-icons">
