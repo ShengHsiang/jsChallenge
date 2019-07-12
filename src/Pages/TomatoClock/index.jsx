@@ -163,12 +163,14 @@ class TomatoClockPage extends Component {
   handleDeleteBtn() {
     const { play, selectRow, missionList } = this.state
     const findIndex = missionList.findIndex(item => item.mission_id === selectRow)
+
     if (!play) {
       if (missionList.length === 1) { //刪除的任務是最後一條的時候，任務陣列置為空
         this.setState({
           missionList: [],
           selectMission: {},
           selectRow: '',
+          progress: 305.5,
         })
       }
       else if (missionList.length === (findIndex + 1)) { // 刪除的任務是陣列最後一條的時候，選自身前一條數據
@@ -176,14 +178,16 @@ class TomatoClockPage extends Component {
         this.setState({
           missionList: missionList,
           selectMission: missionList[findIndex - 1],
-          selectRow: missionList[findIndex - 1].mission_id
+          selectRow: missionList[findIndex - 1].mission_id,
+          progress: missionList.isProgress ? parseInt(missionList[findIndex - 1].remainingTime / (totalTime / 305.5)) : 305.5
         })
       } else if (missionList.length > 1) {
         missionList.splice(findIndex, 1);
         this.setState({
           missionList: missionList,
           selectMission: missionList[findIndex],
-          selectRow: missionList[findIndex].mission_id
+          selectRow: missionList[findIndex].mission_id,
+          progress: missionList.isProgress ? parseInt(missionList[findIndex].remainingTime / (totalTime / 305.5)) : 305.5
         })
       }
     }
