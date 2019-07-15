@@ -29,14 +29,13 @@ class TomatoClockPage extends Component {
         missionList: missionList,
         selectRow: missionList[0].mission_id,
         selectMission: missionList[0],
-        progress: parseInt(missionList[0].remainingTime / (totalTime / 305.5))
+        progress: missionList.isProgress ? parseInt(missionList[0].remainingTime / (totalTime / 305.5)) : 305.5
       })
     }
   }
 
   // state更新的時候同步更新 localStorage
   componentWillUpdate(nextProps, nextState) {
-    console.log("nextState", nextState)
     localStorage.setItem("missionList", JSON.stringify(nextState.missionList))
   }
 
@@ -58,7 +57,6 @@ class TomatoClockPage extends Component {
   handleAddBtnClick = () => {
     const { currentInput, missionList } = this.state;
     const newId = createRandomId(); // 生成一個隨機數 ID
-
     if (currentInput || currentInput !== '') { // input 不為空
       missionList.push({  // push 一個自定義物件
         mission_id: newId,
@@ -70,13 +68,13 @@ class TomatoClockPage extends Component {
         beginTime: '',
         compeleteTime: '',
       })
+      this.setState({
+        currentInput: '', // 重置 input 為空 
+        missionList: missionList,
+        selectRow: missionList[0].mission_id,
+        selectMission: missionList[0]
+      })
     }
-    this.setState({
-      currentInput: '', // 重置 input 為空 
-      missionList: missionList,
-      selectRow: newId,
-      selectMission: missionList.find(item => item.mission_id === newId) // 選中新增的 mission
-    })
   }
 
   onPlayBtnClick = () => {
@@ -99,7 +97,6 @@ class TomatoClockPage extends Component {
   countdownTime = () => {
     const { selectRow, missionList } = this.state;
     const currentMissoin = missionList.find(item => item.mission_id === selectRow)
-    console.log(currentMissoin.remainingTime)
 
     if (currentMissoin.remainingTime > 0) {
       let obj = {
@@ -127,7 +124,6 @@ class TomatoClockPage extends Component {
         selectMission: newMissionStates,
         progress: 0
       })
-      console.log("clear");
       clearInterval(interval) // 清除定時事件
     }
   }
@@ -271,7 +267,7 @@ class TomatoClockPage extends Component {
                   <Popover
                     id="popover-basic"
                   >
-                    <span className="tomato-span-text">點擊開始任務</span>
+                    <span className="tomato-span-text">開始任務</span>
                   </Popover>
                 }
               >
@@ -286,7 +282,7 @@ class TomatoClockPage extends Component {
                 overlay={
                   <Popover
                     id="popover-basic"
-                    title="點擊刪除任務"
+                    title="刪除任務"
                   >
                     <span className="tomato-span-text">PS：正在進行中的任務無法刪除</span>
                   </Popover>

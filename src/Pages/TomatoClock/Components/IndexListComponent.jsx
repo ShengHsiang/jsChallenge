@@ -8,7 +8,9 @@ const IndexListComponent = ({ dataSource, selectRow, countdown, onClick }) => {
     return (
       <div className={juadgeSelect} key={item.mission_id}>
         <div className="tomato-main__left__list--top" onClick={() => onClick(item.mission_id)}>
-          <div className="circle"></div>
+          <div className="circle">
+            {/* <div className="circle__select"></div> */}
+          </div>
           <div className="content" title={item.mission_content}>
             {item.mission_content}
             {/* <span></span> */}

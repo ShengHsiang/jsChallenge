@@ -7,6 +7,9 @@ class MissionListModal extends Component {
   }
   render() {
     const { missionList, show, countdown, selectMission, play } = this.props
+    const todoMissionList = missionList.filter(item => !item.isCompelete)
+    const compeleteMissionList = missionList.filter(item => item.isCompelete)
+    console.log("compeleteMissionList", compeleteMissionList)
     return (
       show
         ?
@@ -49,6 +52,39 @@ class MissionListModal extends Component {
                 value={this.state.currentInput}
               />
               <button onClick={() => this.props.handleAddBtnClick()} type="button" className="addMissionBtn">＋</button>
+            </div>
+
+            <div className="tomato-missionList__middle__todoList">
+              <div className="title">TO-DO</div>
+              <div className="list">
+                {todoMissionList.map(item => (
+                  <div className="list__item">
+                    <div className="square"></div>
+                    <div className="content">{item.mission_content}</div>
+                    <div className="icon">
+                      <i className="material-icons">
+                        play_circle_outline
+                      </i>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="tomato-missionList__middle__todoList">
+              <div className="title">DONE</div>
+              <div className="list">
+                {compeleteMissionList.map(item => (
+                  <div className="list__item">
+                    <div className="square"></div>
+                    <div className="content">{item.mission_content}</div>
+                    <div className="icon">
+                      <i className="material-icons">
+                        play_circle_outline
+                      </i>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           <div className="tomato-missionList__right">
