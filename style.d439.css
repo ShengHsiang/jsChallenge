@@ -1,0 +1,610 @@
+.landing--wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  min-height: 900px;
+  background-color: #f2f2f2; }
+
+.landing-list--wrap {
+  width: 600px;
+  height: 700px;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; }
+
+.landing-list__title {
+  text-align: center;
+  font-size: 30px;
+  position: relative;
+  margin-bottom: 35px; }
+  .landing-list__title_underline {
+    display: block;
+    background-color: #69F0AE;
+    width: 390px;
+    height: 10px;
+    margin: 0 auto;
+    margin-top: -6px;
+    border-radius: 5px; }
+
+.landing-card--wrap {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 20px; }
+
+.landing-card__line {
+  display: flex;
+  flex-direction: column; }
+  .landing-card__line a {
+    color: #ae0000; }
+
+.landing-card__line__title--wrap {
+  display: flex; }
+
+.landing-card__line__content--wrap {
+  margin-top: 10px;
+  display: flex; }
+
+.landing-card__line__content--title {
+  white-space: nowrap; }
+.freecell_wrap {
+  overflow: hidden; }
+  .freecell_wrap .freecell_container {
+    margin: 0 80px; }
+
+.freecell_header_wrap {
+  height: 80px;
+  background-color: #333333;
+  border: 1px solid #707070; }
+  .freecell_header_wrap .freecell_container {
+    display: flex;
+    align-items: center;
+    color: #ffffff; }
+  .freecell_header_wrap .freecell_header_logo {
+    display: flex;
+    align-items: center;
+    height: 80px; }
+    .freecell_header_wrap .freecell_header_logo img {
+      width: 280px;
+      height: 60px; }
+  .freecell_header_wrap .freecell_header_controlBar {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .freecell_header_wrap .freecell_header_controlBar .time {
+      font-size: 34px;
+      font-weight: bold; }
+    .freecell_header_wrap .freecell_header_controlBar .rule, .freecell_header_wrap .freecell_header_controlBar .return {
+      width: 48px;
+      height: 48px;
+      margin: 0 20px;
+      border-radius: 50%;
+      background-color: #D46041;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+    .freecell_header_wrap .freecell_header_controlBar .rule img {
+      width: 30px; }
+    .freecell_header_wrap .freecell_header_controlBar .return img {
+      width: 30px; }
+  .freecell_header_wrap .freecell_header_score {
+    margin-left: auto;
+    font-size: 34px;
+    font-weight: bold; }
+
+.freecell_content_wrap {
+  width: 100%;
+  height: calc(100vh - 80px);
+  min-height: 600px;
+  background-color: lightgray; }
+/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+body {
+  line-height: 1; }
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+nav ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+/* change colours to suit your needs */
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none; }
+
+/* change colours to suit your needs */
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold; }
+
+del {
+  text-decoration: line-through; }
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* change border colour to suit your needs */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0; }
+
+input, select {
+  vertical-align: middle; }
+
+*, *::before, *::after {
+  box-sizing: border-box; }
+.tomato--wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  min-width: 1280px;
+  min-height: 800px;
+  background-color: rgba(0, 0, 0, 0.65); }
+
+.tomato-main--wrap {
+  width: 1280px;
+  height: 800px;
+  display: flex;
+  position: relative; }
+
+.tomato-main__left {
+  width: calc(1280px - 450px);
+  height: 100%;
+  background-color: #FFEDF7;
+  padding-top: 48px;
+  padding-left: 85px;
+  padding-right: 300px;
+  display: flex;
+  flex-direction: column; }
+  .tomato-main__left__input--wrap {
+    height: 56px;
+    width: 100%;
+    position: relative;
+    display: flex; }
+    .tomato-main__left__input--wrap .addMissionBtn {
+      margin-left: -1px;
+      padding: 0 16px;
+      outline: none;
+      border: none;
+      background-color: #fff;
+      font-size: 24px;
+      color: #FF4384; }
+      .tomato-main__left__input--wrap .addMissionBtn:hover {
+        color: #fff;
+        background-color: #FF4384; }
+  .tomato-main__left__input {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding-left: 16px;
+    border: none;
+    color: #FF4384;
+    font-family: 'Roboto', Bold Italic;
+    outline: none; }
+    .tomato-main__left__input::-webkit-input-placeholder {
+      color: #FF4384; }
+    .tomato-main__left__input:-moz-placeholder {
+      color: #FF4384; }
+    .tomato-main__left__input:-ms-input-placeholder {
+      /* IE10+ */
+      color: #FF4384; }
+  .tomato-main__left__list--wrap {
+    margin-top: 145px;
+    width: 445px;
+    height: calc(800px - 96px - 145px - 76px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; }
+  .tomato-main__left__list--more {
+    align-self: flex-end;
+    margin-top: 8px;
+    font-weight: bold;
+    color: #FF4384;
+    cursor: pointer; }
+  .tomato-main__left__list--item {
+    width: 100%;
+    height: 48px;
+    border-bottom: 1px solid rgba(0, 49, 100, 0.2); }
+    .tomato-main__left__list--item.active {
+      padding-top: 20px;
+      flex: 1; }
+      .tomato-main__left__list--item.active .tomato-main__left__list--top {
+        height: 48px;
+        align-items: flex-start; }
+      .tomato-main__left__list--item.active .tomato-main__left__list--bottom {
+        display: block; }
+      .tomato-main__left__list--item.active .circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 2px solid #003164; }
+        .tomato-main__left__list--item.active .circle .circle__select {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: #003164; }
+      .tomato-main__left__list--item.active .content {
+        height: 100%;
+        line-height: normal;
+        font-size: 24px; }
+        .tomato-main__left__list--item.active .content span {
+          margin-top: 8px;
+          display: block;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          border: 1px solid #FF4384; }
+      .tomato-main__left__list--item.active .icon {
+        display: none; }
+  .tomato-main__left__list--top {
+    height: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    color: #003164;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.5s;
+    cursor: pointer; }
+    .tomato-main__left__list--top .circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid #003164;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+    .tomato-main__left__list--top .content {
+      line-height: 48px;
+      flex: 1;
+      font-size: 16px;
+      margin-left: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .tomato-main__left__list--top .icon {
+      width: 24px;
+      height: 24px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none; }
+  .tomato-main__left__list--bottom {
+    display: none; }
+    .tomato-main__left__list--bottom .countdown {
+      line-height: 206px;
+      font-size: 170px;
+      color: #FF4384;
+      text-align: center; }
+
+.tomato-main__middle {
+  width: 540px;
+  height: 540px;
+  position: absolute;
+  top: 130px;
+  right: 180px;
+  border-radius: 50%;
+  border: 5px solid #FF4384; }
+  .tomato-main__middle #circleProcess {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 530px;
+    height: 530px;
+    stroke-dasharray: 305.5%;
+    stroke-dashoffset: 305.5%;
+    stroke: #FF4384;
+    fill: none;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg); }
+  .tomato-main__middle__circle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 50%;
+    border: 5px solid #FF4384;
+    background-color: #FF4384;
+    height: 500px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .tomato-main__middle__circle.active {
+      background-color: #fff; }
+    .tomato-main__middle__circle--playBtn {
+      height: 96px;
+      width: 96px;
+      border-radius: 50%;
+      color: #FF4384;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer; }
+      .tomato-main__middle__circle--playBtn.active {
+        color: #fff;
+        background-color: #FF4384; }
+      .tomato-main__middle__circle--playBtn .material-icons {
+        font-size: 60px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none; }
+    .tomato-main__middle__circle--square {
+      width: 24px;
+      height: 24px;
+      padding: 3px;
+      position: absolute;
+      right: 160px;
+      bottom: 190px;
+      cursor: pointer; }
+      .tomato-main__middle__circle--square .white {
+        display: block;
+        height: 100%;
+        width: 100%;
+        background-color: #fff; }
+        .tomato-main__middle__circle--square .white.active {
+          background-color: #FF4384; }
+
+.tomato-main__right {
+  width: 450px;
+  height: 100%;
+  background-color: #003164;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 48px 85px; }
+  .tomato-main__right__toolBar {
+    display: flex;
+    flex-direction: column; }
+  .tomato-main__right__toolBar--icon {
+    display: flex;
+    flex-direction: column;
+    width: 36px; }
+    .tomato-main__right__toolBar--icon .item {
+      margin-bottom: 48px;
+      cursor: pointer; }
+      .tomato-main__right__toolBar--icon .item:last-child {
+        margin-bottom: 0px; }
+    .tomato-main__right__toolBar--icon .material-icons {
+      font-size: 36px;
+      color: #fff; }
+  .tomato-main__right__toolBar--text {
+    margin-top: auto;
+    writing-mode: vertical-rl;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold; }
+
+.tomato-span-text {
+  color: rgba(0, 0, 0, 0.65); }
+
+.tomato-missionList--wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: #003164;
+  padding: 48px 85px 0 85px;
+  display: flex; }
+
+.tomato-missionList__left {
+  width: 350px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+  .tomato-missionList__left--navItem {
+    display: flex;
+    margin-bottom: 42px; }
+    .tomato-missionList__left--navItem .icon {
+      margin-right: 10px; }
+      .tomato-missionList__left--navItem .icon i {
+        font-size: 36px;
+        color: rgba(255, 255, 255, 0.2); }
+    .tomato-missionList__left--navItem .text {
+      font-size: 36px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.2); }
+    .tomato-missionList__left--navItem.active .icon i {
+      color: #FF4384; }
+    .tomato-missionList__left--navItem.active .text {
+      color: #FF4384; }
+  .tomato-missionList__left--mission {
+    width: 100%;
+    height: 175px;
+    background-color: #FFEDF7;
+    border-radius: 50% / 100% 100% 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; }
+    .tomato-missionList__left--mission .playBtn--wrap {
+      position: absolute;
+      top: -25%;
+      width: 96px;
+      height: 96px;
+      border-radius: 100%;
+      background-color: #FF4384;
+      border: 5px solid #003164;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .tomato-missionList__left--mission .playBtn--wrap.active {
+        background-color: #fff; }
+        .tomato-missionList__left--mission .playBtn--wrap.active i {
+          color: #FF4384; }
+    .tomato-missionList__left--mission .playBtn {
+      width: 82px;
+      height: 82px;
+      border-radius: 100%;
+      border: 5px solid #003164;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer; }
+      .tomato-missionList__left--mission .playBtn i {
+        color: #fff;
+        font-size: 42px; }
+    .tomato-missionList__left--mission .time {
+      color: #FF4384;
+      font-size: 64px;
+      font-weight: bold;
+      line-height: 75px;
+      margin-top: 10px; }
+    .tomato-missionList__left--mission .content {
+      color: #003164;
+      font-size: 16px;
+      font-weight: bold; }
+
+.tomato-missionList__middle {
+  margin-left: auto;
+  width: 445px; }
+  .tomato-missionList__middle__input--wrap {
+    height: 56px;
+    width: 100%;
+    position: relative;
+    display: flex; }
+    .tomato-missionList__middle__input--wrap .addMissionBtn {
+      margin-left: -1px;
+      padding: 0 16px;
+      outline: none;
+      border: none;
+      background-color: #fff;
+      font-size: 24px;
+      color: #FF4384; }
+      .tomato-missionList__middle__input--wrap .addMissionBtn:hover {
+        color: #fff;
+        background-color: #FF4384; }
+  .tomato-missionList__middle__input {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding-left: 16px;
+    border: none;
+    color: #FF4384;
+    font-family: 'Roboto', Bold Italic;
+    outline: none; }
+    .tomato-missionList__middle__input::-webkit-input-placeholder {
+      color: #FF4384; }
+    .tomato-missionList__middle__input:-moz-placeholder {
+      color: #FF4384; }
+    .tomato-missionList__middle__input:-ms-input-placeholder {
+      /* IE10+ */
+      color: #FF4384; }
+  .tomato-missionList__middle__todoList {
+    margin-top: 48px;
+    height: 300px;
+    width: 100%; }
+    .tomato-missionList__middle__todoList .title {
+      line-height: 44px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 0 16px; }
+    .tomato-missionList__middle__todoList .list {
+      margin-top: 16px;
+      min-height: 302px; }
+      .tomato-missionList__middle__todoList .list__item {
+        color: #fff;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+        .tomato-missionList__middle__todoList .list__item .square {
+          width: 24px;
+          height: 24px;
+          border-radius: 100%;
+          border: 3px solid #fff;
+          margin-right: 8px; }
+        .tomato-missionList__middle__todoList .list__item .content {
+          flex: 1; }
+
+.tomato-missionList__right {
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 48px; }
+  .tomato-missionList__right--close {
+    color: #fff;
+    cursor: pointer; }
+    .tomato-missionList__right--close i {
+      font-size: 48px; }
+  .tomato-missionList__right--text {
+    margin-top: auto;
+    writing-mode: vertical-rl;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold; }
